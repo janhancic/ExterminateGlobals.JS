@@ -1,3 +1,8 @@
+/**
+ * A simple JS that helps you find unwanted globals.
+ * 
+ * @return {Object} The ExterminateGlobals.JS object.
+ */
 window.ExterminateGlobals = (function () {
 	var app = {},
 		_monitorObject,

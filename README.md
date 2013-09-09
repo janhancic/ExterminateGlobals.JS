@@ -28,5 +28,20 @@ Not to worry, the `ExterminateGlobals.start()`, as it's first argument, accepts 
 ### Can I use this to monitor any other object?
 Why off course, just pass the object you want to monitor as the second argument to `ExterminateGlobals.start()`.
 
+## API docs
+
+### ExterminateGlobals.start(ignoreKeys, monitorObject)
+
+Start monitoring the `monitorObject` for unwanted globals.
+
+#### Params: 
+
+* **Array** *ignoreKeys* (optional) A list of keys to ignore,
+* **Object** *monitorObject* (optional) The object to monitor, 
+
+### ExterminateGlobals.stop()
+
+Stops the monitoring and reports (to console) any found globals.
+
 ## License
 Licensed under MIT. See `LICENSE.md` file for details.
