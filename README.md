@@ -45,3 +45,6 @@ Stops the monitoring and reports (to console) any found globals.
 
 ## License
 Licensed under MIT. See `LICENSE.md` file for details.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/janhancic/exterminateglobals.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
