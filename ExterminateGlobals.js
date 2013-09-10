@@ -55,8 +55,11 @@ window.ExterminateGlobals = (function () {
 			}
 		} );
 
-		console.info( '' );
-		console.info( 'List of unknown globals: ' + unknownGlobals.join( ', ' ) );
+		console.info( 'List of unknown globals:' );
+
+		unknownGlobals.forEach( function ( key ) {
+			console.log( key + ':', _monitorObject[key] );
+		} );
 
 		console.groupEnd();
 	};
