@@ -4,7 +4,7 @@
  * @return {Object} The ExterminateGlobals.JS object.
  */
 window.ExterminateGlobals = (function () {
-	var app = {},
+	var egjs = {},
 		_monitorObject,
 		_ignoreKeys,
 		_startGlobals;
@@ -17,7 +17,7 @@ window.ExterminateGlobals = (function () {
 	 * @param {Object} monitorObject (optional) The object to monitor, 
 	 *  defaults to `window`
 	 */
-	app.start = function ( ignoreKeys, monitorObject ) {
+	egjs.start = function ( ignoreKeys, monitorObject ) {
 		_ignoreKeys = ignoreKeys || [ 'ExterminateGlobals' ];
 		_monitorObject = monitorObject || window;
 
@@ -31,7 +31,7 @@ window.ExterminateGlobals = (function () {
 	/**
 	 * Stops the monitoring and reports (to console) any found globals.
 	 */
-	app.stop = function () {
+	egjs.stop = function () {
 		var endGlobals = _collectMembers(),
 			numOfUnknownGlobals = endGlobals.length - _startGlobals.length,
 			unknownGlobals,
@@ -79,5 +79,5 @@ window.ExterminateGlobals = (function () {
 		return memberKeys;
 	};
 
-	return app;
+	return egjs;
 }() );
