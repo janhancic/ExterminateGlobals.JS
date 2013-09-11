@@ -29,7 +29,6 @@ Not to worry, the `ExterminateGlobals.start()`, as its first argument, accepts a
 Why of course, just pass the object you want to monitor as the second argument to `ExterminateGlobals.start()`.
 
 ## Advanced usage
-
 Besides `start()` and `stop()` the `ExterminateGlobals` also contains a constructor function `GlobalsCollector` (which the convenience functions start&stop use internally). This means you can monitor multiple objects at the same time or just obtain the list of unwanted globals as an array instead of printing everything out to the console.
 
 Usage example:
@@ -45,8 +44,7 @@ globalsCollector.print();
 Look at the `ExterminateGlobals.js` file for full API documentation.
 
 ## Tests
-
-TODO
+[Jasmine](http://pivotal.github.io/jasmine/) is used for testing. To run the tests just load the `SpecRunner.html` file in your browser.
 
 ## License
 Licensed under MIT. See `LICENSE.md` file for details.
