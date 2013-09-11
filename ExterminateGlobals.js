@@ -1,6 +1,9 @@
 /**
  * A simple JS that helps you find unwanted globals.
- * 
+ * @author Jan Hancic (@janhancic)
+ * @copyright Jan Hancic 2013, released under the MIT 
+ *  license.
+ *  
  * @return {Object} The ExterminateGlobals.JS object.
  */
 window.ExterminateGlobals = (function () {
