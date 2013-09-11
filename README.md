@@ -28,20 +28,25 @@ Not to worry, the `ExterminateGlobals.start()`, as its first argument, accepts a
 ### Can I use this to monitor any other object?
 Why of course, just pass the object you want to monitor as the second argument to `ExterminateGlobals.start()`.
 
-## API docs
+## Advanced usage
 
-### ExterminateGlobals.start(ignoreKeys, monitorObject)
+Besides `start()` and `stop()` the `ExterminateGlobals` also contains a constructor function `GlobalsCollector` (which the convenience functions start&stop use internally). This means you can monitor multiple objects at the same time or just obtain the list of unwanted globals as an array instead of printing everything out to the console.
 
-Start monitoring the `monitorObject` for unwanted globals.
+Usage example:
 
-#### Params: 
+```javascript
+var globalsCollector = new ExterminateGlobals.GlobalsCollector( ['$', 'jQuery'], myObject);
+globalsCollector.startCollecting();
+// your code here
+var unwantedGlobals = globalsCollector.collect();
+globalsCollector.print();
+```
 
-* **Array** *ignoreKeys* (optional) A list of keys to ignore,
-* **Object** *monitorObject* (optional) The object to monitor, 
+Look at the `ExterminateGlobals.js` file for full API documentation.
 
-### ExterminateGlobals.stop()
+## Tests
 
-Stops the monitoring and reports (to console) any found globals.
+TODO
 
 ## License
 Licensed under MIT. See `LICENSE.md` file for details.
