@@ -21,7 +21,12 @@ window.ExterminateGlobals = (function () {
 	 *  defaults to `window`.
 	 */
 	var GlobalsCollector = function ( ignoreKeys, monitoredObject ) {
-		this._ignoreKeys = ignoreKeys || [ 'ExterminateGlobals' ];
+		if ( ignoreKeys != null ) {
+			this._ignoreKeys = ignoreKeys.slice();
+		} else {
+			this._ignoreKeys = [];
+		}
+
 		this._monitoredObject = monitoredObject || window;
 
 		if ( this._ignoreKeys.indexOf( 'ExterminateGlobals' ) === -1 ) {
@@ -83,7 +88,15 @@ window.ExterminateGlobals = (function () {
 	 * @return {Array} List of ignored keys.
 	 */
 	GlobalsCollector.prototype.getIgnoredKeys = function () {
-		return this._ignoreKeys;
+		return this._ignoreKeys.slice();
+	};
+
+	/**
+	 * Returns the collected list of unwanted globals.
+	 * @return {Array} List of unwanted globals.
+	 */
+	GlobalsCollector.prototype.getUnwantedGlobals = function () {
+		return this._unwantedGlobals.slice();
 	};
 
 	/**
