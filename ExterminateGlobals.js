@@ -5,9 +5,72 @@
  */
 window.ExterminateGlobals = (function () {
 	var egjs = {},
-		_monitorObject,
-		_ignoreKeys,
-		_startGlobals;
+		helperGlobalCollector = null;
+
+	var GlobalsCollector = function ( ignoreKeys, monitoredObject ) {
+		this._ignoreKeys = ignoreKeys || [ 'ExterminateGlobals' ];
+		this._monitoredObject = monitoredObject || window;
+
+		if ( this._ignoreKeys.indexOf( 'ExterminateGlobals' ) === -1 ) {
+			this._ignoreKeys.push( 'ExterminateGlobals' );
+		}
+
+		this._startGlobals = [];
+	};
+
+	GlobalsCollector.prototype.startCollecting = function () {
+		this._startGlobals = collectMembers( this._ignoreKeys, this._monitoredObject );
+	};
+
+	GlobalsCollector.prototype.collect = function () {
+		var endGlobals = collectMembers( this._ignoreKeys, this._monitoredObject ),
+			numOfUnknownGlobals = endGlobals.length - this._startGlobals.length,
+			unknownGlobals;
+
+		if ( numOfUnknownGlobals === 0 ) {
+			return [];
+		}
+
+		unknownGlobals = endGlobals.filter( function ( key ) {
+			if ( this._startGlobals.indexOf( key ) === -1 )  {
+				return true; // a unknown global found!
+			} else {
+				return false;
+			}
+		}.bind( this ) );
+
+		return unknownGlobals;
+	};
+
+	GlobalsCollector.prototype.getMonitoredObject = function () {
+		return this._monitoredObject;
+	};
+
+	GlobalsCollector.prototype.getIgnoredKeys = function () {
+		return this._ignoreKeys;
+	};
+
+	GlobalsCollector.print = function ( collectedGlobals, monitoredObject ) {
+		console.group( '==========> ExterminateGlobals.JS <==========' );
+
+		console.log( 'Report for object: ', monitoredObject );
+
+		if ( collectedGlobals.length === 0 ) {
+			console.info( 'No unknown globals found! Nothing to exterminate :(' );
+			console.groupEnd();
+			return;
+		}
+
+		console.info( 'Found ' + collectedGlobals.length + ' unknown globals! Exterminate! Exterminate! Exterminate!' );
+
+		console.info( 'List of unknown globals:' );
+
+		collectedGlobals.forEach( function ( key ) {
+			console.log( key + ':', monitoredObject[key] );
+		} );
+
+		console.groupEnd();
+	};
 
 	/**
 	 * Start monitoring the `monitorObject` for unwanted globals.
@@ -17,59 +80,36 @@ window.ExterminateGlobals = (function () {
 	 * @param {Object} monitorObject (optional) The object to monitor, 
 	 *  defaults to `window`
 	 */
-	egjs.start = function ( ignoreKeys, monitorObject ) {
-		_ignoreKeys = ignoreKeys || [ 'ExterminateGlobals' ];
-		_monitorObject = monitorObject || window;
-
-		if ( _ignoreKeys.indexOf( 'ExterminateGlobals' ) === -1 ) {
-			_ignoreKeys.push( 'ExterminateGlobals' );
+	egjs.start = function ( ignoreKeys, monitoredObject ) {
+		if ( helperGlobalCollector !== null ) {
+			throw new Error( 'Globals collection already in progress. Call ExterminateGlobals.end() before calling ExterminateGlobals.start() again.' );
 		}
 
-		_startGlobals = _collectMembers();
+		helperGlobalCollector = new GlobalsCollector( ignoreKeys, monitoredObject );
+		helperGlobalCollector.startCollecting();
 	};
 
 	/**
 	 * Stops the monitoring and reports (to console) any found globals.
 	 */
 	egjs.stop = function () {
-		var endGlobals = _collectMembers(),
-			numOfUnknownGlobals = endGlobals.length - _startGlobals.length,
-			unknownGlobals,
-			tableData = [];
-
-		console.group( '==========> ExterminateGlobals.JS <==========' );
-
-		if ( numOfUnknownGlobals === 0 ) {
-			console.info( 'No unknown globals found! Nothing to exterminate :(' );
-			console.groupEnd();
-			return;
+		if ( helperGlobalCollector === null ) {
+			throw new Error( 'Call ExterminateGlobals.start() before calling ExterminateGlobals.end().' );
 		}
 
-		console.info( 'Found ' + numOfUnknownGlobals + ' unknown globals! Exterminate! Exterminate! Exterminate!' );
+		var collectedGlobals = helperGlobalCollector.collect();
 
-		unknownGlobals = endGlobals.filter( function ( key ) {
-			if ( _startGlobals.indexOf( key ) === -1 )  {
-				return true; // a unknown global found!
-			} else {
-				return false;
-			}
-		} );
+		GlobalsCollector.print( collectedGlobals, helperGlobalCollector.getMonitoredObject() );
 
-		console.info( 'List of unknown globals:' );
-
-		unknownGlobals.forEach( function ( key ) {
-			console.log( key + ':', _monitorObject[key] );
-		} );
-
-		console.groupEnd();
+		helperGlobalCollector = null;
 	};
 
 	/** @private */
-	function _collectMembers () {
-		var memberKeys = Object.keys( _monitorObject );
+	function collectMembers ( ignoreKeys, monitoredObject ) {
+		var memberKeys = Object.keys( monitoredObject );
 
 		memberKeys = memberKeys.filter( function ( key ) {
-			if (_ignoreKeys.indexOf( key ) === -1 ) {
+			if ( ignoreKeys.indexOf( key ) === -1 ) {
 				return true;
 			} else {
 				return false; // ignore this member as it's a know global
@@ -78,6 +118,8 @@ window.ExterminateGlobals = (function () {
 
 		return memberKeys;
 	};
+
+	egjs.GlobalsCollector = GlobalsCollector;
 
 	return egjs;
 }() );
