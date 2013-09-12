@@ -92,12 +92,13 @@ describe( 'ExterminateGlobals.JS', function() {
 
 	describe( 'convenience functions', function () {
 		describe( 'start()', function () {
-			it( 'todo', function () {
-				expect( true ).toBe( true );
+			it( 'throws Error if called at inappropriate time', function () {
+				ExterminateGlobals.start();
+				expect( ExterminateGlobals.start ).toThrow();
 			} );
 		} );
 
-		describe( 'end()', function () {
+		describe( 'stop()', function () {
 			it( 'todo', function () {
 				expect( true ).toBe( true );
 			} );
