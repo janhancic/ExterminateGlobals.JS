@@ -8,7 +8,12 @@
  */
 window.ExterminateGlobals = (function () {
 	var egjs = {},
-		helperGlobalCollector = null;
+		helperGlobalCollector = null,
+		testMode = false;
+
+	if ( window.ExterminateGlobals != null && window.ExterminateGlobals.TEST_MODE ) {
+		testMode = true;
+	}
 
 	/**
 	 * Class that will 'monitor' an object for any unwanted globals 
@@ -177,6 +182,20 @@ window.ExterminateGlobals = (function () {
 	};
 
 	egjs.GlobalsCollector = GlobalsCollector;
+
+	if ( testMode === true ) {
+		egjs.getHelperGlobalCollector = function () {
+			return helperGlobalCollector;
+		};
+
+		egjs.setHelperGlobalCollector = function ( newValue ) {
+			helperGlobalCollector = newValue;
+		};
+
+		egjs.resetConvenienceFunctions = function () {
+			helperGlobalCollector = null;
+		};
+	}
 
 	return egjs;
 }() );

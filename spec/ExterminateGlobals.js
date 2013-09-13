@@ -1,5 +1,9 @@
 describe( 'ExterminateGlobals.JS', function() {
 
+	beforeEach( function () {
+		ExterminateGlobals.resetConvenienceFunctions();
+	} );
+
 	it( 'has all the methods', function () {
 		expect( window.ExterminateGlobals ).toBeDefined();
 		expect( window.ExterminateGlobals.GlobalsCollector ).toBeDefined();
@@ -92,6 +96,11 @@ describe( 'ExterminateGlobals.JS', function() {
 
 	describe( 'convenience functions', function () {
 		describe( 'start()', function () {
+			it( 'creates a new instance of GlobalsCollector', function () {
+				ExterminateGlobals.start();
+				expect( ExterminateGlobals.getHelperGlobalCollector() instanceof ExterminateGlobals.GlobalsCollector ).toBe( true );
+			} );
+
 			it( 'throws Error if called at inappropriate time', function () {
 				ExterminateGlobals.start();
 				expect( ExterminateGlobals.start ).toThrow();
@@ -99,8 +108,14 @@ describe( 'ExterminateGlobals.JS', function() {
 		} );
 
 		describe( 'stop()', function () {
-			it( 'todo', function () {
-				expect( true ).toBe( true );
+			it( 'resets helper', function () {
+				ExterminateGlobals.start();
+				ExterminateGlobals.stop();
+				expect( ExterminateGlobals.getHelperGlobalCollector() ).toBeNull();
+			} );
+
+			it( 'throws Error if called at inappropriate time', function () {
+				expect( ExterminateGlobals.stop ).toThrow();
 			} );
 		} );
 	} );
