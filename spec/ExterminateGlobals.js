@@ -75,15 +75,18 @@ describe( 'ExterminateGlobals.JS', function() {
 			} );
 		} );
 
-		describe( 'startCollecting()', function () {
-			it( 'todo', function () {
-				expect( true ).toBe( true );
-			} );
-		} );
+		describe( 'startCollecting() & collect()', function () {
+			it( 'reports the globals correctly', function () {
+				var target = { foo: 'bar' };
+				var gc = new ExterminateGlobals.GlobalsCollector( [], target );
+				gc.startCollecting();
 
-		describe( 'collect()', function () {
-			it( 'todo', function () {
-				expect( true ).toBe( true );
+				target.bla = 'fla';
+
+				var collected = gc.collect();
+
+				expect( collected ).toEqual( [ 'bla'] );
+
 			} );
 		} );
 
