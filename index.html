@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>ExterminateGlobals.js by janhancic</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>ExterminateGlobals.js</h1>
+          <h2>Exterminate unwanted JavaScript globals!</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/janhancic/ExterminateGlobals.JS/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/janhancic/ExterminateGlobals.JS/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/janhancic/ExterminateGlobals.JS" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <pre><code>                    Exterminate Globals!
+                   /
+              ___
+      D&gt;=G==='   '.
+            |======|
+            |======|
+        )--/]IIIIII]
+           |_______|
+           C O O O D
+          C O  O  O D
+         C  O  O  O  D
+         C__O__O__O__D
+        [_____________]
+</code></pre>
+
+<h1>
+<a name="exterminateglobalsjs" class="anchor" href="#exterminateglobalsjs"><span class="octicon octicon-link"></span></a>ExterminateGlobals.JS</h1>
+
+<p>Quickly discover if your JS code is leaking any unwanted globals (we all miss a <code>var</code> now and then).</p>
+
+<h2>
+<a name="how-to-use" class="anchor" href="#how-to-use"><span class="octicon octicon-link"></span></a>How to use</h2>
+
+<p>Include the <code>ExterminateGlobals.js</code> file in your HTML and call <code>ExterminateGlobals.start()</code> before any other JavaScript code gets included or executed. Then call <code>ExterminateGlobals.stop();</code> after all JavaScript has finished executing (you can of course do that manually, from the console). This will then generate a nice report in your browser's console:</p>
+
+<p><img src="https://raw.github.com/janhancic/ExterminateGlobals.JS/master/misc/readme_screenshot.png" alt="ExterminateGlobals.JS-in-action" title="ExterminateGlobals.JS in action"></p>
+
+<p>After that start hunting down your unwanted globals and exterminate them.</p>
+
+<h3>
+<a name="what-if-i-have-known-globals" class="anchor" href="#what-if-i-have-known-globals"><span class="octicon octicon-link"></span></a>What if I have known globals?</h3>
+
+<p>Not to worry, the <code>ExterminateGlobals.start()</code>, as its first argument, accepts an array of names (strings) of known globals which will be ignored when generating the report.</p>
+
+<h3>
+<a name="can-i-use-this-to-monitor-any-other-object" class="anchor" href="#can-i-use-this-to-monitor-any-other-object"><span class="octicon octicon-link"></span></a>Can I use this to monitor any other object?</h3>
+
+<p>Why of course, just pass the object you want to monitor as the second argument to <code>ExterminateGlobals.start()</code>.</p>
+
+<h2>
+<a name="advanced-usage" class="anchor" href="#advanced-usage"><span class="octicon octicon-link"></span></a>Advanced usage</h2>
+
+<p>Besides <code>start()</code> and <code>stop()</code> the <code>ExterminateGlobals</code> also contains a constructor function <code>GlobalsCollector</code> (which the convenience functions start&amp;stop use internally). This means you can monitor multiple objects at the same time or just obtain the list of unwanted globals as an array instead of printing everything out to the console.</p>
+
+<p>Usage example:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">globalsCollector</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ExterminateGlobals</span><span class="p">.</span><span class="nx">GlobalsCollector</span><span class="p">(</span> <span class="p">[</span><span class="s1">'$'</span><span class="p">,</span> <span class="s1">'jQuery'</span><span class="p">],</span> <span class="nx">myObject</span><span class="p">);</span>
+<span class="nx">globalsCollector</span><span class="p">.</span><span class="nx">startCollecting</span><span class="p">();</span>
+<span class="c1">// your code here</span>
+<span class="kd">var</span> <span class="nx">unwantedGlobals</span> <span class="o">=</span> <span class="nx">globalsCollector</span><span class="p">.</span><span class="nx">collect</span><span class="p">();</span>
+<span class="nx">globalsCollector</span><span class="p">.</span><span class="nx">print</span><span class="p">();</span>
+</pre></div>
+
+<p>Look at the <code>ExterminateGlobals.js</code> file for full API documentation.</p>
+
+<h2>
+<a name="tests" class="anchor" href="#tests"><span class="octicon octicon-link"></span></a>Tests</h2>
+
+<p><a href="http://pivotal.github.io/jasmine/">Jasmine</a> is used for testing. To run the tests just load the <code>SpecRunner.html</code> file in your browser.</p>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>Licensed under MIT. See <code>LICENSE.md</code> file for details.</p>
+
+<p><a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/janhancic/exterminateglobals.js/trend.png" alt="Bitdeli Badge"></a></p>
+        </section>
+
+        <footer>
+          ExterminateGlobals.js is maintained by <a href="https://github.com/janhancic">janhancic</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
