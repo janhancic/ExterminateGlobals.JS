@@ -10,6 +10,10 @@ describe( 'ExterminateGlobals.JS', function() {
 		expect( window.ExterminateGlobals.start ).toBeDefined();
 		expect( window.ExterminateGlobals.stop ).toBeDefined();
 		expect( window.ExterminateGlobals.collectMembers ).toBeUndefined();
+		// this will be only present in test mode
+		expect( window.ExterminateGlobals.getHelperGlobalCollector ).toBeDefined();
+		expect( window.ExterminateGlobals.setHelperGlobalCollector ).toBeDefined();
+		expect( window.ExterminateGlobals.resetConvenienceFunctions ).toBeDefined();
 	} );
 
 	describe( 'GlobalsCollector', function () {
@@ -85,7 +89,18 @@ describe( 'ExterminateGlobals.JS', function() {
 
 				var collected = gc.collect();
 
-				expect( collected ).toEqual( [ 'bla'] );
+				expect( collected ).toEqual( [ 'bla' ] );
+
+			} );
+
+			it( 'returns empty array if no unwanted globals', function () {
+				var target = { foo: 'bar' };
+				var gc = new ExterminateGlobals.GlobalsCollector( [], target );
+				gc.startCollecting();
+
+				var collected = gc.collect();
+
+				expect( collected ).toEqual( [] );
 
 			} );
 		} );
