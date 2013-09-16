@@ -7,8 +7,8 @@ describe( 'ExterminateGlobals.JS', function() {
 	it( 'has all the methods', function () {
 		expect( window.ExterminateGlobals ).toBeDefined();
 		expect( window.ExterminateGlobals.GlobalsCollector ).toBeDefined();
-		expect( window.ExterminateGlobals.start ).toBeDefined();
-		expect( window.ExterminateGlobals.stop ).toBeDefined();
+		expect( window.ExterminateGlobals.startCollecting ).toBeDefined();
+		expect( window.ExterminateGlobals.collect ).toBeDefined();
 		expect( window.ExterminateGlobals.collectMembers ).toBeUndefined();
 		// this will be only present in test mode
 		expect( window.ExterminateGlobals.getHelperGlobalCollector ).toBeDefined();
@@ -107,27 +107,27 @@ describe( 'ExterminateGlobals.JS', function() {
 	} );
 
 	describe( 'convenience functions', function () {
-		describe( 'start()', function () {
+		describe( 'startCollecting()', function () {
 			it( 'creates a new instance of GlobalsCollector', function () {
-				ExterminateGlobals.start();
+				ExterminateGlobals.startCollecting();
 				expect( ExterminateGlobals.getHelperGlobalCollector() instanceof ExterminateGlobals.GlobalsCollector ).toBe( true );
 			} );
 
 			it( 'throws Error if called at inappropriate time', function () {
-				ExterminateGlobals.start();
-				expect( ExterminateGlobals.start ).toThrow();
+				ExterminateGlobals.startCollecting();
+				expect( ExterminateGlobals.startCollecting ).toThrow();
 			} );
 		} );
 
-		describe( 'stop()', function () {
+		describe( 'collect()', function () {
 			it( 'resets helper', function () {
-				ExterminateGlobals.start();
-				ExterminateGlobals.stop();
+				ExterminateGlobals.startCollecting();
+				ExterminateGlobals.collect();
 				expect( ExterminateGlobals.getHelperGlobalCollector() ).toBeNull();
 			} );
 
 			it( 'throws Error if called at inappropriate time', function () {
-				expect( ExterminateGlobals.stop ).toThrow();
+				expect( ExterminateGlobals.collect ).toThrow();
 			} );
 		} );
 	} );

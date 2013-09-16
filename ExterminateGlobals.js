@@ -3,6 +3,7 @@
  * @author Jan Hancic (@janhancic)
  * @copyright Jan Hancic 2013, released under the MIT 
  *  license.
+ * @version 2.0.0
  *  
  * @return {Object} The ExterminateGlobals.JS object.
  */
@@ -136,12 +137,12 @@ window.ExterminateGlobals = (function () {
 	 *  immediately start collecting the unwanted globals.
 	 *
 	 * @throws {Error} If this function is called before 
-	 *  `stop()` is called (and `start()` was previously 
+	 *  `ExterminateGlobals.collect()` is called (and `ExterminateGlobals.startCollecting()` was previously 
 	 *  called).
 	 */
-	egjs.start = function ( ignoreKeys, monitoredObject ) {
+	egjs.startCollecting = function ( ignoreKeys, monitoredObject ) {
 		if ( helperGlobalCollector !== null ) {
-			throw new Error( 'Globals collection already in progress. Call ExterminateGlobals.end() before calling ExterminateGlobals.start() again.' );
+			throw new Error( 'Globals collection already in progress. Call ExterminateGlobals.collect() before calling ExterminateGlobals.startCollecting() again.' );
 		}
 
 		helperGlobalCollector = new GlobalsCollector( ignoreKeys, monitoredObject );
@@ -153,11 +154,11 @@ window.ExterminateGlobals = (function () {
 	 *  collection process and print out the report.
 	 *
 	 * @throws {Error} If this function is called before 
-	 *  `start()` is.
+	 *  `ExterminateGlobals.startCollecting()` is.
 	 */
-	egjs.stop = function () {
+	egjs.collect = function () {
 		if ( helperGlobalCollector === null ) {
-			throw new Error( 'Call ExterminateGlobals.start() before calling ExterminateGlobals.end().' );
+			throw new Error( 'Call ExterminateGlobals.startCollecting() before calling ExterminateGlobals.collect().' );
 		}
 
 		helperGlobalCollector.collect();
