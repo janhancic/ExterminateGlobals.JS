@@ -104,12 +104,6 @@ describe( 'ExterminateGlobals.JS', function() {
 
 			} );
 		} );
-
-		describe( 'print()', function () {
-			it( 'todo', function () {
-				expect( true ).toBe( true );
-			} );
-		} );
 	} );
 
 	describe( 'convenience functions', function () {
