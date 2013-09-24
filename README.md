@@ -46,6 +46,12 @@ Look at the `ExterminateGlobals.js` file for full API documentation.
 ## Tests
 [Jasmine](http://pivotal.github.io/jasmine/) is used for testing. To run the tests just load the `SpecRunner.html` file in your browser.
 
+## Test report
+Tests pass in the following browsers:
+- Google Chrome v31.0.1636.0 dev, OS X
+- Apple Safari v6.0.5, OS X
+- Mozilla Firefox v24.0, OS X
+
 ## License
 Licensed under MIT. See `LICENSE.md` file for details.
 
