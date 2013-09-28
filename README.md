@@ -12,7 +12,7 @@
              C__O__O__O__D
             [_____________]
 
-# ExterminateGlobals.JS
+# ExterminateGlobals.JS (v2.2.0)
 Quickly discover if your JS code is leaking any unwanted globals (we all miss a `var` now and then).
 
 ## How to use
