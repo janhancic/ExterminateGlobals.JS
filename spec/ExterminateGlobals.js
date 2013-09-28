@@ -110,7 +110,8 @@ describe( 'ExterminateGlobals.JS', function() {
 		describe( 'startCollecting()', function () {
 			it( 'creates a new instance of GlobalsCollector', function () {
 				ExterminateGlobals.startCollecting();
-				expect( ExterminateGlobals.getHelperGlobalCollector() instanceof ExterminateGlobals.GlobalsCollector ).toBe( true );
+				var res = ExterminateGlobals.getHelperGlobalCollector() instanceof ExterminateGlobals.GlobalsCollector;
+				expect( res ).toBe( true );
 			} );
 
 			it( 'throws Error if called at inappropriate time', function () {
