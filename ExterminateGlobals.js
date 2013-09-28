@@ -17,6 +17,16 @@ window.ExterminateGlobals = (function () {
 	}
 
 	/**
+	 * Print the full report including variable contents.
+	 */
+	egjs.PRINT_FULL = 'full';
+
+	/**
+	 * Don't print variable contents, just a list of unwanted globals.
+	 */
+	egjs.PRINT_COMPACT = 'compatc';
+
+	/**
 	 * Class that will 'monitor' an object for any unwanted globals 
 	 *  that would get attached to the object between calls to the 
 	 *  collect methods.
@@ -108,8 +118,13 @@ window.ExterminateGlobals = (function () {
 	/**
 	 * Uses the browser's console to output a report after 
 	 *  the 'collection' process has finished.
+	 * @param {String} printMode How to print the unwanted 
+	 *  globals. Possible values are `ExterminateGlobals.PRINT_FULL` 
+	 *  (default) or `ExterminateGlobals.PRINT_COMPACT`.
 	 */
-	GlobalsCollector.prototype.print = function () {
+	GlobalsCollector.prototype.print = function ( printMode ) {
+		printMode = printMode || egjs.PRINT_FULL;
+
 		console.group( '==========> ExterminateGlobals.JS <==========' );
 
 		console.log( 'Report for object: ', this._monitoredObject );
@@ -125,7 +140,11 @@ window.ExterminateGlobals = (function () {
 		console.info( 'List of unwanted globals:' );
 
 		this._unwantedGlobals.forEach( function ( key ) {
-			console.log( key + ':', this._monitoredObject[key] );
+			if ( printMode === egjs.PRINT_FULL) {
+				console.log( key + ':', this._monitoredObject[key] );
+			} else {
+				console.log( key );
+			}
 		}.bind( this ) );
 
 		console.groupEnd();
@@ -152,17 +171,17 @@ window.ExterminateGlobals = (function () {
 	/**
 	 * This is a convenience function that will stop the 
 	 *  collection process and print out the report.
-	 *
+	 * @param {String} printMode Optional print mode to use.
 	 * @throws {Error} If this function is called before 
 	 *  `ExterminateGlobals.startCollecting()` is.
 	 */
-	egjs.collect = function () {
+	egjs.collect = function ( printMode ) {
 		if ( helperGlobalCollector === null ) {
 			throw new Error( 'Call ExterminateGlobals.startCollecting() before calling ExterminateGlobals.collect().' );
 		}
 
 		helperGlobalCollector.collect();
-		helperGlobalCollector.print();
+		helperGlobalCollector.print( printMode );
 
 		helperGlobalCollector = null;
 	};

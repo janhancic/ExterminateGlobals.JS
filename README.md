@@ -38,7 +38,7 @@ var globalsCollector = new ExterminateGlobals.GlobalsCollector( ['$', 'jQuery'],
 globalsCollector.startCollecting();
 // your code here
 var unwantedGlobals = globalsCollector.collect();
-globalsCollector.print();
+globalsCollector.print(); // pass ExterminateGlobals.PRINT_COMPACT for more compact report
 ```
 
 Look at the `ExterminateGlobals.js` file for full API documentation.
