@@ -47,14 +47,14 @@
 </code></pre>
 
 <h1>
-<a name="exterminateglobalsjs" class="anchor" href="#exterminateglobalsjs"><span class="octicon octicon-link"></span></a>ExterminateGlobals.JS</h1>
+<a name="exterminateglobalsjs-v220" class="anchor" href="#exterminateglobalsjs-v220"><span class="octicon octicon-link"></span></a>ExterminateGlobals.JS (v2.2.0)</h1>
 
 <p>Quickly discover if your JS code is leaking any unwanted globals (we all miss a <code>var</code> now and then).</p>
 
 <h2>
 <a name="how-to-use" class="anchor" href="#how-to-use"><span class="octicon octicon-link"></span></a>How to use</h2>
 
-<p>Include the <code>ExterminateGlobals.js</code> file in your HTML and call <code>ExterminateGlobals.start()</code> before any other JavaScript code gets included or executed. Then call <code>ExterminateGlobals.stop();</code> after all JavaScript has finished executing (you can of course do that manually, from the console). This will then generate a nice report in your browser's console:</p>
+<p>Include the <code>src/ExterminateGlobals.js</code> or <code>build/ExterminateGlobals.min.js</code> file in your HTML and call <code>ExterminateGlobals.startCollecting()</code> before any other JavaScript code gets included or executed. Then call <code>ExterminateGlobals.collect();</code> after all JavaScript has finished executing (you can of course do that manually, from the console). This will then generate a nice report in your browser's console:</p>
 
 <p><img src="https://raw.github.com/janhancic/ExterminateGlobals.JS/master/misc/readme_screenshot.png" alt="ExterminateGlobals.JS-in-action" title="ExterminateGlobals.JS in action"></p>
 
@@ -63,17 +63,17 @@
 <h3>
 <a name="what-if-i-have-known-globals" class="anchor" href="#what-if-i-have-known-globals"><span class="octicon octicon-link"></span></a>What if I have known globals?</h3>
 
-<p>Not to worry, the <code>ExterminateGlobals.start()</code>, as its first argument, accepts an array of names (strings) of known globals which will be ignored when generating the report.</p>
+<p>Not to worry, the <code>ExterminateGlobals.startCollecting()</code>, as its first argument, accepts an array of names (strings) of known globals which will be ignored when generating the report.</p>
 
 <h3>
 <a name="can-i-use-this-to-monitor-any-other-object" class="anchor" href="#can-i-use-this-to-monitor-any-other-object"><span class="octicon octicon-link"></span></a>Can I use this to monitor any other object?</h3>
 
-<p>Why of course, just pass the object you want to monitor as the second argument to <code>ExterminateGlobals.start()</code>.</p>
+<p>Why of course, just pass the object you want to monitor as the second argument to <code>ExterminateGlobals.startCollecting()</code>.</p>
 
 <h2>
 <a name="advanced-usage" class="anchor" href="#advanced-usage"><span class="octicon octicon-link"></span></a>Advanced usage</h2>
 
-<p>Besides <code>start()</code> and <code>stop()</code> the <code>ExterminateGlobals</code> also contains a constructor function <code>GlobalsCollector</code> (which the convenience functions start&amp;stop use internally). This means you can monitor multiple objects at the same time or just obtain the list of unwanted globals as an array instead of printing everything out to the console.</p>
+<p>Besides <code>startCollecting()</code> and <code>collect()</code> the <code>ExterminateGlobals</code> also contains a constructor function <code>GlobalsCollector</code> (which the convenience functions startCollecting&amp;collect use internally). This means you can monitor multiple objects at the same time or just obtain the list of unwanted globals as an array instead of printing everything out to the console.</p>
 
 <p>Usage example:</p>
 
@@ -81,7 +81,7 @@
 <span class="nx">globalsCollector</span><span class="p">.</span><span class="nx">startCollecting</span><span class="p">();</span>
 <span class="c1">// your code here</span>
 <span class="kd">var</span> <span class="nx">unwantedGlobals</span> <span class="o">=</span> <span class="nx">globalsCollector</span><span class="p">.</span><span class="nx">collect</span><span class="p">();</span>
-<span class="nx">globalsCollector</span><span class="p">.</span><span class="nx">print</span><span class="p">();</span>
+<span class="nx">globalsCollector</span><span class="p">.</span><span class="nx">print</span><span class="p">();</span> <span class="c1">// pass ExterminateGlobals.PRINT_COMPACT for more compact report</span>
 </pre></div>
 
 <p>Look at the <code>ExterminateGlobals.js</code> file for full API documentation.</p>
@@ -89,9 +89,18 @@
 <h2>
 <a name="tests" class="anchor" href="#tests"><span class="octicon octicon-link"></span></a>Tests</h2>
 
-<p><a href="http://pivotal.github.io/jasmine/">Jasmine</a> is used for testing. To run the tests just load the <code>SpecRunner.html</code> file in your browser.</p>
+<p><a href="http://pivotal.github.io/jasmine/">Jasmine</a> is used for testing. To run the tests just load the <code>spec/SpecRunner.html</code> file in your browser.</p>
 
 <h2>
+<a name="test-report" class="anchor" href="#test-report"><span class="octicon octicon-link"></span></a>Test report</h2>
+
+<p>Tests pass in the following browsers:</p>
+
+<ul>
+<li>Google Chrome v31.0.1636.0 dev, OS X</li>
+<li>Apple Safari v6.0.5, OS X</li>
+<li>Mozilla Firefox v24.0, OS X</li>
+</ul><h2>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>Licensed under MIT. See <code>LICENSE.md</code> file for details.</p>
