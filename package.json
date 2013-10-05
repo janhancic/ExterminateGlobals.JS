@@ -1,0 +1,26 @@
+{
+  "name": "ExterminateGlobals.JS",
+  "version": "2.2.0",
+  "description": "Quickly discover if your JS code is leaking any unwanted globals (we all miss a `var` now and then).",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/janhancic/ExterminateGlobals.JS.git"
+  },
+  "keywords": [
+    "globals",
+    "exterminate"
+  ],
+  "author": {
+    "name": "Jan Hancic",
+    "email": "jan.hancic@gmail.com",
+    "url": "http://hancic.info"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/janhancic/ExterminateGlobals.JS/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.4"
+  }
+}

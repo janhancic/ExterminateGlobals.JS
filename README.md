@@ -16,7 +16,7 @@
 Quickly discover if your JS code is leaking any unwanted globals (we all miss a `var` now and then).
 
 ## How to use
-Include the `src/ExterminateGlobals.js` or `build/ExterminateGlobals.js` file in your HTML and call `ExterminateGlobals.startCollecting()` before any other JavaScript code gets included or executed. Then call `ExterminateGlobals.collect();` after all JavaScript has finished executing (you can of course do that manually, from the console). This will then generate a nice report in your browser's console:
+Include the `src/ExterminateGlobals.js` or `build/ExterminateGlobals.min.js` file in your HTML and call `ExterminateGlobals.startCollecting()` before any other JavaScript code gets included or executed. Then call `ExterminateGlobals.collect();` after all JavaScript has finished executing (you can of course do that manually, from the console). This will then generate a nice report in your browser's console:
 
 ![ExterminateGlobals.JS-in-action](https://raw.github.com/janhancic/ExterminateGlobals.JS/master/misc/readme_screenshot.png "ExterminateGlobals.JS in action")
 
