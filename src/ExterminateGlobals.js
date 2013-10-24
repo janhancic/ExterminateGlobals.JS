@@ -152,7 +152,7 @@ window.ExterminateGlobals = (function () {
 	egjs.startCollecting = function ( ignoreKeys, monitoredObject ) {
 		if ( helperGlobalCollector !== null ) {
 			var errorMsg = 'Globals collection already in progress. Call ExterminateGlobals.collect() before calling ';
-			errorMsg += 'ExterminateGlobals.startCollecting() again.'
+			errorMsg += 'ExterminateGlobals.startCollecting() again.';
 			throw new Error( errorMsg );
 		}
 
@@ -189,7 +189,7 @@ window.ExterminateGlobals = (function () {
 		} );
 
 		return memberKeys;
-	};
+	}
 
 	egjs.GlobalsCollector = GlobalsCollector;
 
