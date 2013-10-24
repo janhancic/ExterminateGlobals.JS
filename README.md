@@ -56,3 +56,4 @@ Tests pass in the following browsers:
 Licensed under MIT. See `LICENSE.md` file for details.
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/janhancic/exterminateglobals.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Code Climate](https://codeclimate.com/github/janhancic/ExterminateGlobals.JS.png)](https://codeclimate.com/github/janhancic/ExterminateGlobals.JS)
