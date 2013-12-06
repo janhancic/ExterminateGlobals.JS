@@ -47,7 +47,7 @@
 </code></pre>
 
 <h1>
-<a name="exterminateglobalsjs-v220" class="anchor" href="#exterminateglobalsjs-v220"><span class="octicon octicon-link"></span></a>ExterminateGlobals.JS (v2.2.0)</h1>
+<a name="exterminateglobalsjs-v230" class="anchor" href="#exterminateglobalsjs-v230"><span class="octicon octicon-link"></span></a>ExterminateGlobals.JS (v2.3.0)</h1>
 
 <p>Quickly discover if your JS code is leaking any unwanted globals (we all miss a <code>var</code> now and then).</p>
 
@@ -84,6 +84,11 @@
 <span class="nx">globalsCollector</span><span class="p">.</span><span class="nx">print</span><span class="p">();</span> <span class="c1">// pass ExterminateGlobals.PRINT_COMPACT for more compact report</span>
 </pre></div>
 
+<h2>
+<a name="breaking-when-code-writes-a-unwanted-global" class="anchor" href="#breaking-when-code-writes-a-unwanted-global"><span class="octicon octicon-link"></span></a>Breaking when code writes a unwanted global</h2>
+
+<p>If you use the <code>ExterminateGlobals.GlobalsCollector</code> directly you get one extra feature. If you call <code>saveUnwantedGlobals(true)</code> on your object before you start collecting the globals, it will save the list of found globals to <code>localStorage</code>. Then if you refresh the page and start collecting again, <code>GlobalsCollector</code> will insert break points which will get hit whenever your code is writing to a global variable. This makes finding globals even easier, as you are shown directly where in your code you've made a mistake.</p>
+
 <p>Look at the <code>ExterminateGlobals.js</code> file for full API documentation.</p>
 
 <h2>
@@ -105,10 +110,8 @@
 
 <p>Licensed under MIT. See <code>LICENSE.md</code> file for details.</p>
 
-<p>
-  <a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/janhancic/exterminateglobals.js/trend.png" alt="Bitdeli Badge"></a>
-  <a href="https://codeclimate.com/github/janhancic/ExterminateGlobals.JS"><img src="https://codeclimate.com/github/janhancic/ExterminateGlobals.JS.png" /></a>
-</p>
+<p><a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/janhancic/exterminateglobals.js/trend.png" alt="Bitdeli Badge"></a>
+<a href="https://codeclimate.com/github/janhancic/ExterminateGlobals.JS"><img src="https://codeclimate.com/github/janhancic/ExterminateGlobals.JS.png" alt="Code Climate"></a></p>
         </section>
 
         <footer>
