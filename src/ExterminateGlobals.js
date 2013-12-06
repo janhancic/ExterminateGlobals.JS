@@ -47,16 +47,61 @@ window.ExterminateGlobals = (function () {
 
 		this._startGlobals = [];
 		this._unwantedGlobals = [];
+
+		this._saveUnwantedGlobals = false;
+	};
+
+	/**
+	 * Instructs the GlobalsCollector to save any unwanted globals to localStorage, so that we can put brake points on 
+	 *  write on the second run.
+	 * <p>Note that this list is not per monitored object (because of the "limitations" of Object.defineProperty), so 
+	 *  when inserting break points, they might be inserted for objects that you did not save them for.</p>
+	 * @param {Boolean} doSave If true, globals will be saved, otherwise they won't.
+	 */
+	GlobalsCollector.prototype.saveUnwantedGlobals = function ( doSave ) {
+		this._saveUnwantedGlobals = doSave;
+	};
+
+	/**
+	 * Clears the saved unwanted globals from localStorage. If you don't want to brake on write for this globals, you 
+	 *  need to call this method even if you set `saveUnwantedGlobals` to `false`.
+	 */
+	GlobalsCollector.prototype.clearSavedUnwantedGlobals = function () {
+		localStorage.removeItem('GlobalsCollector_unwanted_globals');
 	};
 
 	/**
 	 * Starts the 'collection' process.
+	 * <p>If any saved unwanted globals are found (@see GlobalsCollector#saveUnwantedGlobals), this will insert break 
+	 *  points for them.</p>
 	 */
 	GlobalsCollector.prototype.startCollecting = function () {
 		this._startGlobals = [];
 		this._unwantedGlobals = [];
 
 		this._startGlobals = collectMembers( this._ignoreKeys, this._monitoredObject );
+
+		this._insertBreakPoints();
+	};
+
+	/** @private */
+	GlobalsCollector.prototype._insertBreakPoints = function () {
+		var unwantedGlobals = localStorage.getItem('GlobalsCollector_unwanted_globals');
+		if ( unwantedGlobals == null ) {
+			return;
+		}
+
+		unwantedGlobals.split(',').forEach( function ( unwantedGlobal ) {
+			Object.defineProperty(
+				this._monitoredObject,
+				unwantedGlobal,
+				{
+					set: function () {
+						debugger;
+					}
+				}
+			);
+		}.bind( this ) );
 	};
 
 	/**
@@ -79,7 +124,18 @@ window.ExterminateGlobals = (function () {
 			}
 		}.bind( this ) );
 
+		this._storeUnwantedGlobals();
+
 		return this._unwantedGlobals;
+	};
+
+	/** @private */
+	GlobalsCollector.prototype._storeUnwantedGlobals = function () {
+		if ( this._saveUnwantedGlobals === false ) {
+			return;
+		}
+
+		localStorage.setItem('GlobalsCollector_unwanted_globals', this._unwantedGlobals.join( ',' ) );
 	};
 
 	/**

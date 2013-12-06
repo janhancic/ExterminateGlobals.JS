@@ -5,7 +5,9 @@
 		<title>ExterminateGlobals.JS example</title>
 		<script type="text/javascript" src="../src/ExterminateGlobals.js"></script>
 		<script type="text/javascript">
-		ExterminateGlobals.startCollecting( [ 'jQuery', '$' ] );
+		var egjs = new ExterminateGlobals.GlobalsCollector( [ 'jQuery', '$' ] );
+		egjs.saveUnwantedGlobals( true );
+		egjs.startCollecting();
 		</script>
 		<!-- put your script includes here (or anywhere else after the ExterminateGlobals.js) -->
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -20,7 +22,8 @@
 	</head>
 	<body>
 		<script type="text/javascript">
-		ExterminateGlobals.collect();
+		egjs.collect();
+		egjs.print();
 		</script>
 	</body>
 </html>

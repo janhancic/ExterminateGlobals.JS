@@ -40,6 +40,8 @@ globalsCollector.startCollecting();
 var unwantedGlobals = globalsCollector.collect();
 globalsCollector.print(); // pass ExterminateGlobals.PRINT_COMPACT for more compact report
 ```
+## Breaking when code writes a unwanted global
+If you use the `ExterminateGlobals.GlobalsCollector` directly you get one extra feature. If you call `saveUnwantedGlobals(true)` on your object before you start collecting the globals, it will save the list of found globals to `localStorage`. Then if you refresh the page and start collecting again, `GlobalsCollector` will insert break points which will get hit whenever your code is writing to a global variable. This makes finding globals even easier, as you are shown directly where in your code you've made a mistake.
 
 Look at the `ExterminateGlobals.js` file for full API documentation.
 
