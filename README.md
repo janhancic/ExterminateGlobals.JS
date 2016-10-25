@@ -46,7 +46,7 @@ If you use the `ExterminateGlobals.GlobalsCollector` directly you get one extra 
 Look at the `ExterminateGlobals.js` file for full API documentation.
 
 ## Tests
-[Jasmine](http://pivotal.github.io/jasmine/) is used for testing. To run the tests just load the `spec/SpecRunner.html` file in your browser.
+[Jasmine](https://jasmine.github.io/) is used for testing. To run the tests just load the `spec/SpecRunner.html` file in your browser.
 
 ## Test report
 Tests pass in the following browsers:
